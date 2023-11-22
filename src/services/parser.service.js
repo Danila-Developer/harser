@@ -388,6 +388,7 @@ class ParserService {
                     document.querySelector('input[value="Accept All"]').click()
                 }
             })
+            await page.waitForSelector('input[name=q]', { timeout: 3000 })
             await page.type(`input[name=q]`, hotelName, {delay: 20})
 
             const startDataIndex = new Date().getTime()
