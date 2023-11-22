@@ -382,6 +382,7 @@ class ParserService {
             const startGoto = new Date().getTime()
             await page.goto('https://www.google.ru/maps/', { waitUntil: 'networkidle2', timeout: timeout.goto * 4 })
             const endGoto = new Date().getTime()
+            await page.waitForTimeout(10000)
             await page.evaluate(_ => {
                 function xcc_contains(selector, text) {
                     var elements = document.querySelectorAll(selector);
