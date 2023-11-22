@@ -116,9 +116,9 @@ class ParserService {
 
             const browser = await puppeteer.launch({ headless: true, devtools: false,
                 //executablePath: '/usr/bin/google-chrome-stable',
-                args: [
-                    '--no-sandbox'
-                ]
+                // args: [
+                //     '--no-sandbox'
+                // ]
             })
 
             let chromeSpawnArgs = browser.process().spawnargs;
