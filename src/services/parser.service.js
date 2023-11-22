@@ -114,11 +114,11 @@ class ParserService {
         try {
             let chromeTmpDataDir = null
 
-            const browser = await puppeteer.launch({ headless: true, devtools: false,
+            const browser = await puppeteer.launch({ headless: false, devtools: false,
                 //executablePath: '/usr/bin/google-chrome-stable',
-                // args: [
-                //     '--no-sandbox'
-                // ]
+                args: [
+                    '--no-sandbox'
+                ]
             })
 
             let chromeSpawnArgs = browser.process().spawnargs;
@@ -382,7 +382,7 @@ class ParserService {
             const startGoto = new Date().getTime()
             await page.goto('https://www.google.ru/maps/', { waitUntil: 'networkidle2', timeout: timeout.goto * 4 })
             const endGoto = new Date().getTime()
-
+            await page.waitForTimeout(10000)
             await page.type(`input[name=q]`, hotelName, {delay: 20})
 
             const startDataIndex = new Date().getTime()
