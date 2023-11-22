@@ -382,17 +382,11 @@ class ParserService {
             const startGoto = new Date().getTime()
             await page.goto('https://www.google.ru/maps/', { waitUntil: 'networkidle2', timeout: timeout.goto * 4 })
             const endGoto = new Date().getTime()
-            await page.waitForTimeout(10000)
-            await page.evaluate(_ => {
-                function xcc_contains(selector, text) {
-                    var elements = document.querySelectorAll(selector);
-                    return Array.prototype.filter.call(elements, function(element){
-                        return RegExp(text, "i").test(element.textContent.trim());
-                    });
+            //await page.waitForTimeout(10000)
+            await page.evaluate(() => {
+                if (document.querySelector('input[value="Accept All"]')) {
+                    document.querySelector('input[value="Accept All"]').click()
                 }
-                var _xcc;
-                _xcc = xcc_contains('[id*=cookie] a, [class*=cookie] a, [id*=cookie] button, [class*=cookie] button', '^(Alle akzeptieren|Akzeptieren|Verstanden|Zustimmen|Okay|OK)$');
-                if (_xcc != null && _xcc.length != 0) { _xcc[0].click(); }
             })
             await page.type(`input[name=q]`, hotelName, {delay: 20})
 
