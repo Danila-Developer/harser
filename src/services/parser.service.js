@@ -399,7 +399,7 @@ class ParserService {
             await page.click('div[data-index="0"]')
 
             try {
-                await page.waitForSelector('a[data-tooltip="Перейти на сайт"]', { timeout: 7000 })
+                await page.waitForSelector('a[data-tooltip="Open website"]', { timeout: 7000 })
             } catch (err) {
                 if (err instanceof TimeoutError) {
                     await page.waitForSelector('div[role="feed"]', {timeout: timeout.dataIndex * 4 })
