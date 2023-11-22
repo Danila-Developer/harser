@@ -162,7 +162,7 @@ class ParserService {
                 await browser.close()
                 if (chromeTmpDataDir !== null) {
                     if (fs.existsSync('/tmp/' + chromeTmpDataDir)) {
-                        fs.rmSync('/tmp/' + chromeTmpDataDir, { recursive: true, force: true })
+                        fs.rmSync('/tmp/' + chromeTmpDataDir, { recursive: false, force: true })
                         console.log('removed1', '/tmp/' + chromeTmpDataDir)
                     }
                     if (fs.existsSync('/tmp/snap-private-tmp/snap.chromium/tmp/' + chromeTmpDataDir)) {
@@ -383,14 +383,12 @@ class ParserService {
             await page.goto('https://www.google.ru/maps/', { waitUntil: 'networkidle2', timeout: timeout.goto * 4 })
             const endGoto = new Date().getTime()
 
-            await page.waitForSelector('input[value="Accept All"]', { timeout: 1000 })
             await page.evaluate(() => {
-                console.log(document.querySelector('input[value="Accept All"]'))
-                if (document.querySelector('input[value="Accept All"]')) {
-                    document.querySelector('input[value="Accept All"]').click()
+                if (document.querySelector('input[value="Accept all"]')) {
+                    document.querySelector('input[value="Accept all"]').click()
                 }
             })
-            await page.waitForTimeout(10000)
+            //await page.waitForTimeout(10000)
             await page.waitForSelector('input[name=q]', { timeout: 3000 })
             await page.type(`input[name=q]`, hotelName, {delay: 20})
 
