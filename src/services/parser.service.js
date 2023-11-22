@@ -383,6 +383,7 @@ class ParserService {
             await page.goto('https://www.google.ru/maps/', { waitUntil: 'networkidle2', timeout: timeout.goto * 4 })
             const endGoto = new Date().getTime()
             //await page.waitForTimeout(10000)
+            await page.waitForSelector('input[value="Accept All"]', { timeout: 1000 })
             await page.evaluate(() => {
                 if (document.querySelector('input[value="Accept All"]')) {
                     document.querySelector('input[value="Accept All"]').click()
