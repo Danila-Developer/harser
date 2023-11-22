@@ -404,11 +404,11 @@ class ParserService {
                 if (err instanceof TimeoutError) {
                     await page.waitForSelector('div[role="feed"]', {timeout: timeout.dataIndex * 4 })
                     await page.evaluate(() => document.querySelector('div[role="feed"]').querySelectorAll('a')[1].click())
-                    await page.waitForSelector('a[data-tooltip="Перейти на сайт"]', { timeout: 5000 })
+                    await page.waitForSelector('a[data-tooltip="Open website"]', { timeout: 5000 })
                 }
             }
 
-            const url = await page.$eval('a[data-tooltip="Перейти на сайт"]', (element) => element.href)
+            const url = await page.$eval('a[data-tooltip="Open website"]', (element) => element.href)
 
             if (url) {
                 await page2.goto(url, { waitUntil: 'networkidle2' })
