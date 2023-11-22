@@ -114,7 +114,7 @@ class ParserService {
         try {
             let chromeTmpDataDir = null
 
-            const browser = await puppeteer.launch({ headless: false, devtools: false,
+            const browser = await puppeteer.launch({ headless: true, devtools: false,
                 //executablePath: '/usr/bin/google-chrome-stable',
                 args: [
                     '--no-sandbox'
@@ -389,8 +389,8 @@ class ParserService {
                 }
             })
             //await page.waitForTimeout(10000)
-            await page.waitForSelector('input[name=q]', { timeout: 3000 })
-            await page.type(`input[name=q]`, hotelName, {delay: 20})
+            await page.waitForSelector('input[name=q]', { timeout: 1000 })
+            await page.type(`input[name=q]`, hotelName, { delay: 20 })
 
             const startDataIndex = new Date().getTime()
             await page.waitForSelector('div[data-index="0"]', {timeout: timeout.dataIndex * 4 })
