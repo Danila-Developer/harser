@@ -69,14 +69,19 @@ class ParserService {
                         }
                         console.log(ParserService.processInWorkCount)
                         console.log('post', country)
-                        await models.HotelModel.create({
-                            name,
-                            email: emails?.join(','),
-                            executionTime,
-                            officialUrl,
-                            country,
-                            requestId: currentRequestId
-                        })
+                        const hotelsWithSameEmail = await models.HotelModel.findAll({ where: { email: _.get(emails, '[0]', '') }, raw: true })
+                        if (_.size(hotelsWithSameEmail) === 0) {
+                            await models.HotelModel.create({
+                                name,
+                                email: emails?.join(','),
+                                executionTime,
+                                officialUrl,
+                                country,
+                                requestId: currentRequestId
+                            })
+                        } else {
+                            console.log('same email')
+                        }
                     }
                 } else {
                     console.log('double!')
